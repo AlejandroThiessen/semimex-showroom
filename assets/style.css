@@ -19,3 +19,21 @@
 @media(max-width:820px){.showroom-hero-copy{column-gap:25px}.hero-facts{gap:15px}.hero-facts>div+div{padding-left:15px}.hero-facts>div{gap:9px}.hero-facts strong{font-size:2.1rem}.hero-facts span{font-size:.75rem}.hero-lead{font-size:1rem}.hero-actions{gap:15px}.contact-band-actions{min-width:245px}.contact-band-actions .button{min-width:245px}.type-info{align-items:flex-start}.type-info p{min-height:2.4rem}.footer-top{column-gap:40px}.car-card-bottom{flex-wrap:nowrap}.vehicle-summary .button{font-size:.875rem}.inventory-filters select,.inventory-filters input{font-size:.875rem}}
 @media(max-width:580px){.showroom-hero-copy{padding-right:6%}.hero-actions{gap:22px}.hero-actions .button{font-size:.875rem;gap:17px}.hero-contact{font-size:.875rem;gap:9px}.hero-facts{gap:27px}.hero-facts>div+div{padding-left:27px}.hero-facts>div{gap:14px}.type-info p{min-height:0}.footer-top{column-gap:20px}.filter-chip{font-size:.875rem;padding-inline:16px}.car-info h3,.inventory-content .car-info h3{font-size:1.125rem;min-height:0}.dealership-detail{gap:18px}.dealership-detail img{width:115px}.dealership-detail p{font-size:.75rem}.gallery-missing span{font-size:.875rem}.contact-method strong{font-size:1rem}}
 @media(max-width:370px){.hero-actions{gap:18px}.hero-actions .button{padding-inline:15px;gap:10px}.hero-contact{gap:6px}.car-card-bottom{flex-wrap:wrap}.hero-facts{gap:23px}.hero-facts>div+div{padding-left:23px}.hero-facts>div{gap:11px}.filter-chip{padding-inline:12px}.dealership-detail{flex-direction:column;align-items:flex-start}.brand-lockup{gap:5px}.brand-mark{width:35px}.brand{gap:8px}}
+
+/* Mobile listing cards: reserve full rows for price and the touch target. */
+@media(max-width:820px){
+  .car-card{min-width:0;display:flex;flex-direction:column}
+  .car-photo{flex-shrink:0}
+  .car-info,.inventory-content .car-info{min-width:0;flex:1;display:flex;flex-direction:column}
+  .car-info h3,.inventory-content .car-info h3{overflow-wrap:anywhere;min-height:0}
+  .car-specs{gap:8px 12px}
+  .car-card-bottom,.inventory-content .car-card-bottom{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:8px;margin-top:auto;padding-block:16px 12px}
+  .car-price,.inventory-content .car-price{max-width:100%;font-size:2rem;line-height:1.25;overflow-wrap:anywhere}
+  .car-card-bottom .detail-link,.inventory-content .car-card-bottom .detail-link{width:100%;min-height:44px;justify-content:space-between;white-space:normal;font-size:.875rem}
+  .car-card-bottom .detail-link svg{flex-shrink:0}
+}
+@media(max-width:640px){
+  .car-grid,.inventory-content .car-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .car-info,.inventory-content .car-info{padding:20px 18px 0}
+  .car-info h3,.inventory-content .car-info h3{font-size:1.125rem;line-height:1.5}
+}
