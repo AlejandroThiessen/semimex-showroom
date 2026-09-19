@@ -170,6 +170,57 @@
       if (event.key === 'ArrowLeft') {event.preventDefault();show(current-1);}
       if (event.key === 'ArrowRight') {event.preventDefault();show(current+1);}
     });
+    // Only deliberate one-finger horizontal gestures change the photo.
+    // Keep page scrolling, pinch zoom, and a normal tap to expand available.
+    function enableSwipe(surface) {
+      let start = null;
+      let horizontal = false;
+      let suppressClickUntil = 0;
+      surface.addEventListener('touchstart', (event) => {
+        suppressClickUntil = 0;
+        horizontal = false;
+        start = event.touches.length === 1
+          ? {x:event.touches[0].clientX, y:event.touches[0].clientY}
+          : null;
+      }, {passive:true});
+      surface.addEventListener('touchmove', (event) => {
+        if (!start) return;
+        if (event.touches.length !== 1) { start = null; return; }
+        const dx = event.touches[0].clientX - start.x;
+        const dy = event.touches[0].clientY - start.y;
+        if (!horizontal && Math.max(Math.abs(dx), Math.abs(dy)) >= 12) {
+          if (Math.abs(dx) <= Math.abs(dy) * 1.3) { start = null; return; }
+          horizontal = true;
+        }
+        if (horizontal && event.cancelable) event.preventDefault();
+      }, {passive:false});
+      surface.addEventListener('touchend', (event) => {
+        if (!start || event.touches.length || !event.changedTouches.length) {
+          start = null;
+          return;
+        }
+        const dx = event.changedTouches[0].clientX - start.x;
+        const dy = event.changedTouches[0].clientY - start.y;
+        start = null;
+        const swiped = Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.3;
+        if (horizontal || swiped) suppressClickUntil = Date.now() + 500;
+        if (swiped) show(current + (dx < 0 ? 1 : -1));
+      }, {passive:true});
+      surface.addEventListener('touchcancel', () => {
+        start = null;
+        if (horizontal) suppressClickUntil = Date.now() + 500;
+      }, {passive:true});
+      surface.addEventListener('click', (event) => {
+        if (event.detail !== 0 && Date.now() < suppressClickUntil) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }
+      }, {capture:true});
+    }
+    if (thumbs.length > 1) {
+      enableSwipe($('#gallery-expand'));
+      enableSwipe(expandedImage);
+    }
     if (thumbs.length < 2) {
       $('#gallery-prev').hidden = true;$('#gallery-next').hidden = true;
       $('.lightbox-prev').hidden = true;$('.lightbox-next').hidden = true;

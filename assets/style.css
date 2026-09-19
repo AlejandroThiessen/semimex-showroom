@@ -41,3 +41,4 @@
 /* Keep intrinsic photo and thumbnail widths inside the listing column. */
 .vehicle-layout>div,.vehicle-layout>.vehicle-summary,.gallery{min-width:0}
 .gallery{width:100%;max-width:100%}
+#gallery-expand,#lightbox-image{touch-action:pan-y pinch-zoom}
